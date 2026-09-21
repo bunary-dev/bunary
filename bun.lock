@@ -8,6 +8,7 @@
         "@bunary/auth": "^0.1.0",
         "@bunary/core": "^0.2.0",
         "@bunary/http": "^0.3.0",
+        "@bunary/orm": "^0.1.0",
       },
       "devDependencies": {
         "@biomejs/biome": "2.5.14",
@@ -40,6 +41,8 @@
     "@bunary/core": ["@bunary/core@0.2.0", "", {}, "sha512-xAfIcNWUqwYPD/lZyTIaLI1cCer/BK+GmRaqtI5YKL5RP8QTQzEt7YPygvu209wjObbhdZ/8vVHnwBTyitHtkQ=="],
 
     "@bunary/http": ["@bunary/http@0.3.0", "", {}, "sha512-jD7mPZ6iVbx8A3z3LhM+YgUufhdwI4wWyY06FE3BJH3zrUI3fV3FMKwtIVG1ipl2tAafU3b8BpZJm/3Luol1pw=="],
+
+    "@bunary/orm": ["@bunary/orm@0.1.0", "", { "peerDependencies": { "@bunary/core": "^0.1.0" } }, "sha512-BV4oR6oweL946cVQLnEcZha7DFHn1Gw1BJRa7UlV68NKSL6Vd3eifaepauAN6iLIiUxLBERqcUJQtXO99INe7w=="],
 
     "@types/bun": ["@types/bun@1.4.2", "", { "dependencies": { "bun-types": "1.4.2" } }, "sha512-GimotNn7+ZV0uVArItBbriZsR1oNf0+WTzPkdcFrzShI7k2norL0uzEaJT8T33dWr7O/c9ZDuAFQrctKCi72oQ=="],
 

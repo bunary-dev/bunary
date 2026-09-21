@@ -1,6 +1,6 @@
 {
   "name": "bunary",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A Bun-first backend framework inspired by Laravel's elegant developer experience",
   "type": "module",
   "main": "./dist/index.js",
@@ -27,6 +27,11 @@
       "import": "./dist/auth.js",
       "default": "./dist/auth.js"
     },
+    "./orm": {
+      "types": "./dist/orm.d.ts",
+      "import": "./dist/orm.js",
+      "default": "./dist/orm.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -37,7 +42,7 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "bun build ./src/index.ts ./src/core.ts ./src/http.ts ./src/auth.ts --outdir ./dist --target bun --external @bunary/core --external @bunary/http --external @bunary/auth && tsc -p tsconfig.build.json",
+    "build": "bun build ./src/index.ts ./src/core.ts ./src/http.ts ./src/auth.ts ./src/orm.ts --outdir ./dist --target bun --external @bunary/core --external @bunary/http --external @bunary/auth --external @bunary/orm && tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "test": "bun test",
     "lint": "biome check ./src ./tests",
@@ -71,9 +76,10 @@
     "bun": ">=1.4.0"
   },
   "dependencies": {
+    "@bunary/auth": "^0.1.0",
     "@bunary/core": "^0.2.0",
     "@bunary/http": "^0.3.0",
-    "@bunary/auth": "^0.1.0"
+    "@bunary/orm": "^0.1.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.14",
