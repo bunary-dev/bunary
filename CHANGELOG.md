@@ -5,6 +5,24 @@ All notable changes to `bunary` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-09-21
+
+### Changed
+
+- **Requires Bun ≥ 1.4.0** (`engines.bun`); `.bun-version` pins 1.4.2 for CI and contributors
+- Toolchain: `@types/bun` replaces `bun-types`, `typescript` ^7 and `@biomejs/biome` 2.5.1 pinned as devDependencies; `bun.lock` committed
+- `tsconfig.json` is now self-contained (previously extended a sibling package's config path, which only resolved by coincidence of the local monorepo checkout) and aligned with Bun 1.4 `bun init` defaults (`module: Preserve`, `verbatimModuleSyntax`, `noUncheckedIndexedAccess`, `noImplicitOverride`, `noFallthroughCasesInSwitch`)
+- CI: Bun version read from `.bun-version`, plus a non-required `bun latest` canary job; build job verifies the publish tarball with `bun pm pack --dry-run`; `tag-release.yml` on `actions/checkout@v7`
+- `exports` conditions now list `types` before `import`/`default`; added `./package.json` subpath
+- Added `publishConfig.access: public` and `sideEffects: false`
+- Added `biome.json`, `lint`/`format` scripts covering `src` and `tests`
+- Added `bunfig.toml` with coverage collection and threshold, and a smoke test covering the package's re-export surface
+- Added `.github/dependabot.yml` (npm weekly + github-actions monthly)
+
+### Fixed
+
+- Added missing `LICENSE` file (MIT) to the repo and the published tarball
+
 ## [0.1.0] - 2026-01-31
 
 ### Added
