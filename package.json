@@ -36,8 +36,6 @@
   },
   "files": [
     "dist",
-    "logo.svg",
-    "README.md",
     "CHANGELOG.md"
   ],
   "sideEffects": false,
