@@ -1,6 +1,6 @@
 {
   "name": "bunary",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A Bun-first backend framework inspired by Laravel's elegant developer experience",
   "type": "module",
   "main": "./dist/index.js",

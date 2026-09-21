@@ -40,7 +40,7 @@ export {
   installAuthPlugin,
   setAuthManager,
 } from "@bunary/auth";
-export type { AppConfig, BunaryConfig, OrmConfig } from "@bunary/core";
+export type { AppConfig, BunaryConfig } from "@bunary/core";
 // Re-export core
 export {
   clearBunaryConfig,
