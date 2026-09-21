@@ -5,6 +5,14 @@ All notable changes to `bunary` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-09-21
+
+### Added
+
+- `@bunary/orm` ^0.1.0 is now a dependency, with a `bunary/orm` subpath and every orm export re-exported flat from `bunary` (#3)
+- The root entry now re-exports the complete surface of all four sub-packages: `cors`, `CorsOptions`, `BodyParseError`, `AppOptions`, `GroupCallback`, `GroupOptions`, `HandlerResponse`, `HttpMethod`, `ListenOptions`, `PathParams`, `RouteInfo` (http); `Environment`, `EnvironmentType` (core); `AuthStorage`, `AuthPluginRouter`, `GuardInput`, `InstallableAuthManager` (auth) (#4)
+- Completeness tests: `tests/completeness.test.ts` asserts every runtime export of each sub-package is re-exported unchanged from the root and its subpath; `tests/type-surface.test.ts` makes `tsc` fail if a documented type export disappears (#4)
+
 ## [0.2.1] - 2026-09-21
 
 ### Fixed

@@ -18,6 +18,9 @@ This installs the complete Bunary framework including:
 - `@bunary/core` - Configuration and environment helpers
 - `@bunary/http` - HTTP routing and middleware
 - `@bunary/auth` - Authentication guards
+- `@bunary/orm` - Database drivers, models, migrations
+
+Every export of those packages is available flat from `bunary` (there are no name collisions between them), and each package also has its own subpath.
 
 ## Quick Start
 
