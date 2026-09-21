@@ -6,6 +6,8 @@
 
 A Bun-first backend framework inspired by Laravel's elegant developer experience.
 
+Requires Bun ≥ 1.4.0.
+
 ## Installation
 
 ```bash

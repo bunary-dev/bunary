@@ -1,6 +1,6 @@
 {
   "name": "bunary",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A Bun-first backend framework inspired by Laravel's elegant developer experience",
   "type": "module",
   "main": "./dist/index.js",
@@ -8,21 +8,26 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "default": "./dist/index.js"
     },
     "./core": {
+      "types": "./dist/core.d.ts",
       "import": "./dist/core.js",
-      "types": "./dist/core.d.ts"
+      "default": "./dist/core.js"
     },
     "./http": {
+      "types": "./dist/http.d.ts",
       "import": "./dist/http.js",
-      "types": "./dist/http.d.ts"
+      "default": "./dist/http.js"
     },
     "./auth": {
+      "types": "./dist/auth.d.ts",
       "import": "./dist/auth.js",
-      "types": "./dist/auth.d.ts"
-    }
+      "default": "./dist/auth.js"
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",
@@ -30,9 +35,14 @@
     "README.md",
     "CHANGELOG.md"
   ],
+  "sideEffects": false,
   "scripts": {
-    "build": "bun build ./src/index.ts ./src/core.ts ./src/http.ts ./src/auth.ts --outdir ./dist --target bun --external @bunary/core --external @bunary/http --external @bunary/auth && bunx tsc -p tsconfig.build.json",
-    "typecheck": "bunx tsc --noEmit"
+    "build": "bun build ./src/index.ts ./src/core.ts ./src/http.ts ./src/auth.ts --outdir ./dist --target bun --external @bunary/core --external @bunary/http --external @bunary/auth && tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test",
+    "lint": "biome check ./src ./tests",
+    "format": "biome check --write ./src ./tests",
+    "pack:check": "bun pm pack --dry-run"
   },
   "keywords": [
     "bunary",
@@ -47,11 +57,18 @@
   "author": "Paul Radford",
   "license": "MIT",
   "homepage": "https://bunary.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bunary-dev/bunary.git"
+  },
   "bugs": {
     "url": "https://github.com/bunary-dev/bunary/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
-    "bun": ">=1.0.0"
+    "bun": ">=1.4.0"
   },
   "dependencies": {
     "@bunary/core": "^0.1.0",
@@ -59,7 +76,8 @@
     "@bunary/auth": "^0.1.0"
   },
   "devDependencies": {
-    "bun-types": "^1.0.0",
-    "typescript": "^5.0.0"
+    "@biomejs/biome": "2.5.1",
+    "@types/bun": "^1.4.2",
+    "typescript": "^7.0.2"
   }
 }
