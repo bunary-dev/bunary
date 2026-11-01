@@ -5,3 +5,6 @@ coverage/
 *.log
 .DS_Store
 bun.lockb
+
+# secrets (bunker per-repo token lives in .bunker/.env)
+.env
