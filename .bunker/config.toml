@@ -1,0 +1,9 @@
+# runs in each worktree before the agent
+setup = "bun install --frozen-lockfile"
+
+# must pass before anything is pushed: the same checks main requires (test, typecheck, lint)
+verify = "bun test && bun run typecheck && bun run lint"
+
+[models]
+# Opus 5.5 for every bunker role in this repo (#21, same as the other bunary packages)
+default = "claude-opus-5-5"
