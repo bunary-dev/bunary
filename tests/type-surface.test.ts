@@ -14,6 +14,7 @@
  */
 
 import { describe, expect, it } from "bun:test";
+import { createRouter } from "../src/index";
 
 // Subpaths: the colliding names stay reachable where they belong, and each
 // provider subpath carries its own types.
@@ -56,8 +57,14 @@ export type {
   AuthUser,
   AuthUserLocals,
   BasicGuardOptions,
+  BindingContext,
+  BindResolver,
   BodyOf,
   BodyReader,
+  BoundContext,
+  BoundOf,
+  BoundWebSocketData,
+  BoundWebSocketRouteOptions,
   BunaryConfig,
   BunaryServer,
   CheckRelationNames,
@@ -131,9 +138,11 @@ export type {
   ReservedColumnName,
   ReservedScopeName,
   ResourceConverter,
+  RouteBindings,
   RouteBuilder,
   RouteHandler,
   RouteInfo,
+  RouteRegistration,
   Router,
   RouterOptions,
   RouterWebSocketHandler,
@@ -166,13 +175,41 @@ export type {
   ValidatedContext,
   ValidatedRouteHandler,
   ValidationIssue,
+  WebSocketBindings,
   WebSocketData,
   WebSocketHandlers,
+  WebSocketRegistration,
   WebSocketRouteOptions,
   WithRelations,
 } from "../src/index";
 export type { Model as OrmSubpathModel } from "../src/orm";
 export type { OrmProviderOptions as OrmProviderSubpathOptions } from "../src/orm-provider";
+
+// Route model binding (@bunary/http >= 0.6.0, first working build 0.7.1):
+// `bind` resolvers type `ctx.bound` through `bunary`. Never called at
+// runtime; `tsc` checks it.
+interface BoundUser {
+  id: number;
+  name: string;
+}
+const findUser = async (id: number): Promise<BoundUser | null> => ({
+  id,
+  name: "Ada",
+});
+export function bindingSurface(): void {
+  createRouter().get(
+    "/users/:user",
+    { bind: { user: (id) => findUser(Number(id)) } },
+    (ctx) => {
+      const user: BoundUser = ctx.bound.user;
+      // @ts-expect-error -- `ctx.bound.user` is a `BoundUser`, not a string
+      const wrong: string = ctx.bound.user;
+      // @ts-expect-error -- only declared bindings are on `ctx.bound`
+      ctx.bound.post;
+      return { id: user.id, wrong };
+    },
+  );
+}
 
 describe("bunary type surface", () => {
   it("is enforced by tsc (see file header)", () => {

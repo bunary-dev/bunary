@@ -7,9 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-02
+
 ### Changed
 
+- `@bunary/http` is now `^0.7.1` (was `^0.4.0`, which on 0.x never reached 0.5 and later). `bunary` users get route model binding (`bind` / `ctx.bound`, also on `ws()` routes) and the `ModelNotFoundError` → `404` mapping; 0.7.0 is skipped as a broken build. `@bunary/core`, `@bunary/orm` and `@bunary/auth` stay at `^0.4.0` (#30)
 - Publishing now always rebuilds `dist` from clean (#27)
+
+### Added
+
+- Root re-exports of the new http binding types `BindResolver`, `BindingContext`, `BoundContext`, `BoundOf`, `BoundWebSocketData`, `BoundWebSocketRouteOptions`, `RouteBindings`, `RouteRegistration`, `WebSocketBindings` and `WebSocketRegistration`, and a type test that a `bind` route types `ctx.bound` through `bunary` (#30)
 
 ## [0.4.0] - 2026-11-02
 
