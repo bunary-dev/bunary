@@ -25,15 +25,15 @@ const SUBPATHS: Record<string, string> = {
 };
 
 describe("package.json", () => {
-  it("is version 0.4.0", () => {
-    expect(pkg.version).toBe("0.4.0");
+  it("is version 0.5.0", () => {
+    expect(pkg.version).toBe("0.5.0");
   });
 
-  it("depends on every sub-package at ^0.4.0", () => {
+  it("depends on http ^0.7.1 (route model binding) and the rest at ^0.4.0", () => {
     expect(pkg.dependencies).toEqual({
       "@bunary/auth": "^0.4.0",
       "@bunary/core": "^0.4.0",
-      "@bunary/http": "^0.4.0",
+      "@bunary/http": "^0.7.1",
       "@bunary/orm": "^0.4.0",
     });
   });

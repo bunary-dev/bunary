@@ -111,8 +111,14 @@ export {
 // Re-export http (`createCookieJar` and `CookieJar` collide with auth: subpath only)
 export type {
   AnyContext,
+  BindingContext,
+  BindResolver,
   BodyOf,
   BodyReader,
+  BoundContext,
+  BoundOf,
+  BoundWebSocketData,
+  BoundWebSocketRouteOptions,
   BunaryServer,
   CookieSerializeOptions,
   CorsOptions,
@@ -138,9 +144,11 @@ export type {
   RateLimitStore,
   RequestContext,
   ResourceConverter,
+  RouteBindings,
   RouteBuilder,
   RouteHandler,
   RouteInfo,
+  RouteRegistration,
   Router,
   RouterOptions,
   RouterWebSocketHandler,
@@ -153,8 +161,10 @@ export type {
   StandardSchemaLike,
   ValidatedContext,
   ValidatedRouteHandler,
+  WebSocketBindings,
   WebSocketData,
   WebSocketHandlers,
+  WebSocketRegistration,
   WebSocketRouteOptions,
 } from "@bunary/http";
 export {

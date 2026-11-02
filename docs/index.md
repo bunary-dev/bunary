@@ -1,15 +1,15 @@
 # bunary
 
 `bunary` is the umbrella package of the Bunary framework. It owns no behaviour of its own: it
-depends on `@bunary/core`, `@bunary/http`, `@bunary/auth` and `@bunary/orm` (all `^0.4.0`) and
-re-exports them, flat from the root entry and one subpath per package entry.
+depends on `@bunary/http` `^0.7.1` and `@bunary/core`, `@bunary/auth` and `@bunary/orm` `^0.4.0`,
+and re-exports them, flat from the root entry and one subpath per package entry.
 
 Requires Bun ≥ 1.4.0.
 
 ## Installation
 
 ```bash
-bun add bunary@^0.4.0
+bun add bunary@^0.5.0
 ```
 
 `@bunary/orm` has `drizzle-orm` (`^0.45.0`) as a peer dependency; `bun add` installs it with
@@ -72,7 +72,7 @@ Types: `AppConfig`, `Application`, `BunaryConfig`, `Command`, `CommandArg`, `Com
 
 Runtime: `BadRequestError`, `BodyParseError`, `ConflictError`, `ForbiddenError`, `HttpError`, `InternalServerError`, `MethodNotAllowedError`, `NotFoundError`, `Resource`, `TooManyRequestsError`, `UnauthorizedError`, `UnprocessableError`, `abort`, `cors`, `createCookieJar`, `createRouter`, `html`, `isHttpError`, `json`, `problem`, `problemResponse`, `rateLimit`, `redirect`, `serveStatic`, `sse`, `status`, `text`, `toResponse`
 
-Types: `AnyContext`, `BodyOf`, `BodyReader`, `BunaryServer`, `CookieJar`, `CookieSerializeOptions`, `CorsOptions`, `GroupCallback`, `GroupOptions`, `GroupRouter`, `HandlerResponse`, `HttpConfig`, `HttpErrorOptions`, `HttpMethod`, `InferSchemaOutput`, `ListenOptions`, `Middleware`, `ParamsOf`, `PathParams`, `ProblemDetails`, `ProblemOptions`, `ProblemResponseOptions`, `QueryOf`, `QueryParams`, `RateLimitHit`, `RateLimitOptions`, `RateLimitStore`, `RequestContext`, `ResourceConverter`, `RouteBuilder`, `RouteHandler`, `RouteInfo`, `RouteSchema`, `RouteSchemas`, `Router`, `RouterOptions`, `RouterWebSocketHandler`, `ServeStaticOptions`, `SseEvent`, `SseOptions`, `SseStream`, `StandardSchemaLike`, `ValidatedContext`, `ValidatedRouteHandler`, `WebSocketData`, `WebSocketHandlers`, `WebSocketRouteOptions`
+Types: `AnyContext`, `BindResolver`, `BindingContext`, `BodyOf`, `BodyReader`, `BoundContext`, `BoundOf`, `BoundWebSocketData`, `BoundWebSocketRouteOptions`, `BunaryServer`, `CookieJar`, `CookieSerializeOptions`, `CorsOptions`, `GroupCallback`, `GroupOptions`, `GroupRouter`, `HandlerResponse`, `HttpConfig`, `HttpErrorOptions`, `HttpMethod`, `InferSchemaOutput`, `ListenOptions`, `Middleware`, `ParamsOf`, `PathParams`, `ProblemDetails`, `ProblemOptions`, `ProblemResponseOptions`, `QueryOf`, `QueryParams`, `RateLimitHit`, `RateLimitOptions`, `RateLimitStore`, `RequestContext`, `ResourceConverter`, `RouteBindings`, `RouteBuilder`, `RouteHandler`, `RouteInfo`, `RouteRegistration`, `RouteSchema`, `RouteSchemas`, `Router`, `RouterOptions`, `RouterWebSocketHandler`, `ServeStaticOptions`, `SseEvent`, `SseOptions`, `SseStream`, `StandardSchemaLike`, `ValidatedContext`, `ValidatedRouteHandler`, `WebSocketBindings`, `WebSocketData`, `WebSocketHandlers`, `WebSocketRegistration`, `WebSocketRouteOptions`
 
 ### `bunary/http/provider` (`@bunary/http/provider`)
 
@@ -104,6 +104,21 @@ Runtime: `DatabaseToken`, `ormProvider`
 
 Types: `DatabaseConfig`, `OrmProviderOptions`, `PostgresDatabaseConfig`, `SqliteDatabaseConfig`
 
+
+## Upgrading from 0.4.x
+
+0.5.0 moves `@bunary/http` from `^0.4.0` to `^0.7.1` (0.7.0 was a broken build). Nothing is
+removed; it adds route model binding (`bind` on a route's options, read from a typed
+`ctx.bound`, and on `ws()` routes onto `ws.data.bound`) and maps `@bunary/orm`'s
+`ModelNotFoundError` (e.g. from `findOrFail()`) to a `404` problem instead of a `500`.
+
+```ts
+import { createRouter } from "bunary";
+
+createRouter().get("/users/:user", { bind: { user: (id) => User.find(Number(id)) } }, (ctx) =>
+  ctx.bound.user, // User, never null; a missing user answers 404
+);
+```
 
 ## Upgrading from 0.3.x
 
