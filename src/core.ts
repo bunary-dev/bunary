@@ -3,7 +3,7 @@
  *
  * @example
  * ```ts
- * import { env, defineConfig } from "bunary/core";
+ * import { createApp, defineConfig, env } from "bunary/core";
  * ```
  */
 export * from "@bunary/core";

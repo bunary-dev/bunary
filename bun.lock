@@ -5,10 +5,10 @@
     "": {
       "name": "bunary",
       "dependencies": {
-        "@bunary/auth": "^0.1.0",
-        "@bunary/core": "^0.2.0",
-        "@bunary/http": "^0.3.0",
-        "@bunary/orm": "^0.1.0",
+        "@bunary/auth": "^0.4.0",
+        "@bunary/core": "^0.4.0",
+        "@bunary/http": "^0.4.0",
+        "@bunary/orm": "^0.4.0",
       },
       "devDependencies": {
         "@biomejs/biome": "2.6.3",
@@ -40,13 +40,15 @@
 
     "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.6.3", "", { "os": "win32", "cpu": "x64" }, "sha512-GhtOPphBWlnCepqpNk/w5eGN5oGRCzL20EbAkL1XCIpyboeVC9R642noyT43l8LSenGS4qz9IL8sKPfwY37V/Q=="],
 
-    "@bunary/auth": ["@bunary/auth@0.1.0", "", {}, "sha512-WsIktkv8NlF/wtH/daenqwEG3hhWXDA8jhaS1LWXiCp9UjaoxZJT2NynlT8CLNVUTx2BMUQYx2Ip3uG+tbfLbQ=="],
+    "@bunary/auth": ["@bunary/auth@0.4.0", "", { "dependencies": { "jose": "^6.2.14" }, "peerDependencies": { "@bunary/core": "^0.4.0" }, "optionalPeers": ["@bunary/core"] }, "sha512-zCsMk4SOgVedpLKaf/A5LvkMhMhyI9SQOiX6IydJudhKwSQ+A+MrAxT2juvmsiQ7Uxh2aovA0vfZcjiSjsFruA=="],
 
-    "@bunary/core": ["@bunary/core@0.2.0", "", {}, "sha512-xAfIcNWUqwYPD/lZyTIaLI1cCer/BK+GmRaqtI5YKL5RP8QTQzEt7YPygvu209wjObbhdZ/8vVHnwBTyitHtkQ=="],
+    "@bunary/core": ["@bunary/core@0.4.0", "", { "dependencies": { "@standard-schema/spec": "^1.1.0" } }, "sha512-ksZTrYQtKnAaHpswckJosOEwOIyu5bR7LIU/JilxGb+IttQ+SkYZ7XC2T9En8dpFEGlKvD1+tbqlghYOryoemw=="],
 
-    "@bunary/http": ["@bunary/http@0.3.0", "", {}, "sha512-jD7mPZ6iVbx8A3z3LhM+YgUufhdwI4wWyY06FE3BJH3zrUI3fV3FMKwtIVG1ipl2tAafU3b8BpZJm/3Luol1pw=="],
+    "@bunary/http": ["@bunary/http@0.4.0", "", { "dependencies": { "cookie": "2.0.1" }, "peerDependencies": { "@bunary/core": "^0.4.0" }, "optionalPeers": ["@bunary/core"] }, "sha512-ZGTLMZ1nB50pQnpjgyQpHbCNzsxyNNa+XqO0ioJbJqMj0RRJ4XvuSfZIsWF+XHQE6DuUePtIgpOaYfdpdQHHVA=="],
 
-    "@bunary/orm": ["@bunary/orm@0.1.0", "", { "peerDependencies": { "@bunary/core": "^0.1.0" } }, "sha512-BV4oR6oweL946cVQLnEcZha7DFHn1Gw1BJRa7UlV68NKSL6Vd3eifaepauAN6iLIiUxLBERqcUJQtXO99INe7w=="],
+    "@bunary/orm": ["@bunary/orm@0.4.0", "", { "peerDependencies": { "@bunary/core": "^0.4.0", "drizzle-orm": "^0.45.0" }, "optionalPeers": ["@bunary/core"] }, "sha512-vKss5gtmU9ugQlPncMny0Q6hQ84gab9zUtN5P1P6VU6OS2flq2jSR9amOk5Ak7/F3swHVVINYRcsl7lay2Ut3A=="],
+
+    "@standard-schema/spec": ["@standard-schema/spec@1.1.0", "", {}, "sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w=="],
 
     "@types/bun": ["@types/bun@1.4.4", "", { "dependencies": { "bun-types": "1.4.4" } }, "sha512-9wkRDXUXK124pEnAutE6n/l18j+i9GC5IAHK8TmX/2nlySETmky0OU6yL5U8pW1AoKh++AN9auDCr647BfurjQ=="],
 
@@ -93,6 +95,12 @@
     "@typescript/typescript-win32-x64": ["@typescript/typescript-win32-x64@7.0.2", "", { "os": "win32", "cpu": "x64" }, "sha512-0BQ3HkAHHlKLSp1qRvf3SUhGpGsDuhB/jgFw75guyqbxJqEaS0Cw/VFO8i2nHglJUzQCRtMMR/IBAKE3ETMC4g=="],
 
     "bun-types": ["bun-types@1.4.4", "", { "dependencies": { "@types/node": "*", "undici-types": "*" } }, "sha512-yjrJh5oGX7mMPKGd19YXyIjmEuj4G4zNC30bs7PM9Az7NQ3ndF3j6hbeRdvJTRQEhJ/FYQwW0a2moweEi2hMxQ=="],
+
+    "cookie": ["cookie@2.0.1", "", {}, "sha512-yuToqVvRrj6pfDXREyQAAv8SkAEk/8GS3jQRTiUMm66TVtBYmqQeoEjL2Lmq8Rpo6271vH76InTChTitEAm65w=="],
+
+    "drizzle-orm": ["drizzle-orm@0.45.4", "", { "peerDependencies": { "@aws-sdk/client-rds-data": ">=3", "@cloudflare/workers-types": ">=4", "@electric-sql/pglite": ">=0.2.0", "@libsql/client": ">=0.10.0", "@libsql/client-wasm": ">=0.10.0", "@neondatabase/serverless": ">=0.10.0", "@netlify/db": ">=0.4.0", "@op-engineering/op-sqlite": ">=2", "@opentelemetry/api": "^1.4.1", "@planetscale/database": ">=1.13", "@prisma/client": "*", "@tidbcloud/serverless": "*", "@types/better-sqlite3": "*", "@types/pg": "*", "@types/sql.js": "*", "@upstash/redis": ">=1.34.7", "@vercel/postgres": ">=0.8.0", "@xata.io/client": "*", "better-sqlite3": ">=7", "bun-types": "*", "expo-sqlite": ">=14.0.0", "gel": ">=2", "knex": "*", "kysely": "*", "mysql2": ">=2", "pg": ">=8", "postgres": ">=3", "prisma": "*", "sql.js": ">=1", "sqlite3": ">=5" }, "optionalPeers": ["@aws-sdk/client-rds-data", "@cloudflare/workers-types", "@electric-sql/pglite", "@libsql/client", "@libsql/client-wasm", "@neondatabase/serverless", "@netlify/db", "@op-engineering/op-sqlite", "@opentelemetry/api", "@planetscale/database", "@prisma/client", "@tidbcloud/serverless", "@types/better-sqlite3", "@types/pg", "@types/sql.js", "@upstash/redis", "@vercel/postgres", "@xata.io/client", "better-sqlite3", "bun-types", "expo-sqlite", "gel", "knex", "kysely", "mysql2", "pg", "postgres", "prisma", "sql.js", "sqlite3"] }, "sha512-NiM1YZpJ2UxyeE67DpDDZ+Tsw4YLX3trSlkNT7Tm9eKoUNb1LvaAaQzXgYQsWs+AQ9TUmmwMmBOCXuqqxUWKKQ=="],
+
+    "jose": ["jose@6.2.15", "", {}, "sha512-qdF6ewcZARtef63fJ9AKKZPgxw+t7USH6HLXYcD4CrdmSvDp79rpJSPFEKc90QBeGS63u1KQtN2MZQHC0yDIzA=="],
 
     "typescript": ["typescript@7.0.2", "", { "optionalDependencies": { "@typescript/typescript-aix-ppc64": "7.0.2", "@typescript/typescript-darwin-arm64": "7.0.2", "@typescript/typescript-darwin-x64": "7.0.2", "@typescript/typescript-freebsd-arm64": "7.0.2", "@typescript/typescript-freebsd-x64": "7.0.2", "@typescript/typescript-linux-arm": "7.0.2", "@typescript/typescript-linux-arm64": "7.0.2", "@typescript/typescript-linux-loong64": "7.0.2", "@typescript/typescript-linux-mips64el": "7.0.2", "@typescript/typescript-linux-ppc64": "7.0.2", "@typescript/typescript-linux-riscv64": "7.0.2", "@typescript/typescript-linux-s390x": "7.0.2", "@typescript/typescript-linux-x64": "7.0.2", "@typescript/typescript-netbsd-arm64": "7.0.2", "@typescript/typescript-netbsd-x64": "7.0.2", "@typescript/typescript-openbsd-arm64": "7.0.2", "@typescript/typescript-openbsd-x64": "7.0.2", "@typescript/typescript-sunos-x64": "7.0.2", "@typescript/typescript-win32-arm64": "7.0.2", "@typescript/typescript-win32-x64": "7.0.2" }, "bin": { "tsc": "bin/tsc" } }, "sha512-8FYau96o3NKOhbjKi/qNvG/W5jhzxkbdm5sj9AbZ/5T5sWqn3hJgLfGx27sRKZWTvyzCP8dLRBTf5tBTSRVUNA=="],
 

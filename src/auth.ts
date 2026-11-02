@@ -3,7 +3,7 @@
  *
  * @example
  * ```ts
- * import { auth } from "bunary/auth";
+ * import { createAuth, createJwtGuard } from "bunary/auth";
  * ```
  */
 export * from "@bunary/auth";

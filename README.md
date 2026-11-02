@@ -11,59 +11,69 @@ Requires Bun ≥ 1.4.0.
 ## Installation
 
 ```bash
-bun add bunary
+bun add bunary@^0.4.0
 ```
 
-This installs the complete Bunary framework including:
-- `@bunary/core` - Configuration and environment helpers
-- `@bunary/http` - HTTP routing and middleware
-- `@bunary/auth` - Authentication guards
-- `@bunary/orm` - Database drivers, models, migrations
+This installs the complete Bunary framework at 0.4.0:
+- `@bunary/core` - Application container, providers, config, environment and validation helpers
+- `@bunary/http` - Router, middleware, response helpers, CORS, rate limiting, static files, SSE
+- `@bunary/auth` - Session, JWT and Basic guards
+- `@bunary/orm` - `defineModel()` models on [Drizzle](https://orm.drizzle.team) (`drizzle-orm` is a peer dependency, installed automatically by `bun add`)
 
-Every export of those packages is available flat from `bunary` (there are no name collisions between them), and each package also has its own subpath.
+Every export of those packages and of their `/provider` integrations is available flat from `bunary`, except `createCookieJar` and the `CookieJar` type: `@bunary/http` and `@bunary/auth` both define them, with different types, so import them from `bunary/http` or `bunary/auth`. The full export list is in [docs/index.md](./docs/index.md).
 
 ## Quick Start
 
 ```typescript
-import { createApp, env, isDev } from "bunary";
+import { cors, createApp, createRouter, httpProvider, isDev, serve } from "bunary";
 
-const app = createApp();
+const router = createRouter();
 
-// Middleware
-app.use(async (ctx, next) => {
-  console.log(`${ctx.request.method} ${ctx.request.url}`);
-  return next();
-});
+router.use(cors({ origin: "*" }));
 
-// Routes
-app.get("/", () => ({ message: "Hello from Bunary!" }));
+router.get("/", (ctx) => ctx.json({ message: "Hello from Bunary!" }));
 
-app.get("/users/:id", (ctx) => ({
+router.get("/users/:id", (ctx) => ({
   id: ctx.params.id,
   name: `User ${ctx.params.id}`,
 }));
 
-// Route groups
-app.group("/api", (router) => {
-  router.get("/health", () => ({ status: "ok" }));
-  router.get("/version", () => ({ version: "1.0.0" }));
+router.group("/api", (api) => {
+  api.get("/health", () => ({ status: "ok" }));
 });
 
-// Start server
-const port = 3000;
-app.listen({ port });
-console.log(`Server running on http://localhost:${port}`);
+const app = await createApp({
+  config: { app: { name: "my-api" }, http: { port: 3000 } },
+  providers: [httpProvider(router)],
+}).boot();
+
+serve(app);
 if (isDev()) console.log("Development mode");
 ```
 
 ## Subpath Imports
 
-You can also import directly from Bunary submodules:
+Each package also has its own subpath, mirroring its exports exactly:
+
+| Subpath | Re-exports |
+| --- | --- |
+| `bunary` | everything below, flat (minus `createCookieJar` / `CookieJar`) |
+| `bunary/core` | `@bunary/core` |
+| `bunary/http` | `@bunary/http` |
+| `bunary/http/provider` | `@bunary/http/provider` |
+| `bunary/auth` | `@bunary/auth` |
+| `bunary/auth/provider` | `@bunary/auth/provider` |
+| `bunary/orm` | `@bunary/orm` |
+| `bunary/orm/provider` | `@bunary/orm/provider` |
 
 ```typescript
-import { env, defineConfig } from "bunary/core";
-import { createApp } from "bunary/http";
+import { createApp, defineConfig, env } from "bunary/core";
+import { createRouter, createCookieJar } from "bunary/http";
+import { httpProvider, serve } from "bunary/http/provider";
 import { createAuth, createJwtGuard } from "bunary/auth";
+import { authProvider, requireAuth } from "bunary/auth/provider";
+import { defineModel } from "bunary/orm";
+import { DatabaseToken, ormProvider } from "bunary/orm/provider";
 ```
 
 ## Individual Packages
@@ -71,14 +81,15 @@ import { createAuth, createJwtGuard } from "bunary/auth";
 You can also install packages individually:
 
 ```bash
-bun add @bunary/core    # Just config/env helpers
-bun add @bunary/http    # Just HTTP routing
-bun add @bunary/auth    # Just authentication
+bun add @bunary/core@^0.4.0                # Application, config, environment
+bun add @bunary/http@^0.4.0                # HTTP routing
+bun add @bunary/auth@^0.4.0                # Authentication
+bun add @bunary/orm@^0.4.0 drizzle-orm     # Models
 ```
 
 ## Documentation
 
-Visit [bunary.dev](https://bunary.dev) for full documentation.
+See [docs/index.md](./docs/index.md) for the full export list, and [bunary.dev](https://bunary.dev) for the framework documentation.
 
 ## License
 

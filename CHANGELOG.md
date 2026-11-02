@@ -5,6 +5,27 @@ All notable changes to `bunary` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-11-02
+
+Aligns `bunary` with the 0.4.0 release of every Bunary package.
+
+### Breaking
+
+- `@bunary/core`, `@bunary/http`, `@bunary/orm` and `@bunary/auth` are now `^0.4.0` (were `^0.2.0`, `^0.3.0`, `^0.1.0`, `^0.1.0`); `@bunary/orm` brings `drizzle-orm` ^0.45.0 as a peer dependency (#23)
+- Removed re-exports of APIs the 0.4.0 sub-packages no longer ship (#23):
+  - http: `createApp`, `AppOptions`, `BunaryApp` (`createApp` from `bunary` is now `@bunary/core`'s application container; use `createRouter`)
+  - core: `getBunaryConfig`, `clearBunaryConfig`
+  - auth: `auth`, `getAuthManager`, `setAuthManager`, `clearAuthManager`, `installAuthPlugin`, `createCookieStorage`, `AuthPlugin`, `AuthPluginRouter`, `AuthStorage`, `InstallableAuthManager`
+  - orm: `BaseModel`, `Model` (class; `Model` is now a type), `Schema`, `Migrator`, `createMigrator`, `MigrationsRepository`, `MysqlDriver`, `SqliteDriver`, `createDriver`, `getDriver`, `registerDriver`, `resetDriver`, `closeDriver`, `clearDriverRegistry`, `defineOrmConfig`, `getOrmConfig`, `setOrmConfig`, `clearOrmConfig`, `enableCoreConfig`, and the types `DatabaseDriver`, `DatabaseType`, `DriverFactory`, `MigrationModule`, `MigrationRecord`, `MigrationStatus`, `MigratorOptions`, `ModelData`, `MysqlConfig`, `OrmConfig`, `QueryBuilder`, `QueryResult`, `SqliteConfig`, `TableBuilder`, `TableBuilderCallback`
+- `createCookieJar` and the `CookieJar` type are defined by both `@bunary/http` and `@bunary/auth` with different types, so the root entry exports neither; import them from `bunary/http` or `bunary/auth` (#23)
+
+### Added
+
+- Root re-exports of the new 0.4.0 surface, including core's `createApp`, `createToken`, `defineProvider`, `defineEnv`, `validateWith`; http's `createRouter`, `cors`, `rateLimit`, `serveStatic`, `sse`, `problem` and the `HttpError` family; orm's `defineModel` and `ModelNotFoundError`; auth's `createSessionGuard` and guard types (#23)
+- Subpaths `bunary/http/provider`, `bunary/auth/provider` and `bunary/orm/provider`, mirroring each package's `@bunary/core` integration; their exports (`httpProvider`, `serve`, `RouterToken`, `authProvider`, `AuthToken`, `authMiddleware`, `requireAuth`, `ormProvider`, `DatabaseToken`) are also on the root (#23)
+- `docs/index.md`: entries, export list, name collisions and upgrade notes (#23)
+- Tests: every re-exported runtime name is imported by name (`tests/index.test.ts`), every type by name (`tests/type-surface.test.ts`), and `tests/package.test.ts` checks the `exports` map, build entries and dependency ranges (#23)
+
 ## [0.3.0] - 2026-09-21
 
 ### Added

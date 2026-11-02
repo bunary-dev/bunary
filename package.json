@@ -1,6 +1,6 @@
 {
   "name": "bunary",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A Bun-first backend framework inspired by Laravel's elegant developer experience",
   "type": "module",
   "main": "./dist/index.js",
@@ -22,15 +22,30 @@
       "import": "./dist/http.js",
       "default": "./dist/http.js"
     },
+    "./http/provider": {
+      "types": "./dist/http-provider.d.ts",
+      "import": "./dist/http-provider.js",
+      "default": "./dist/http-provider.js"
+    },
     "./auth": {
       "types": "./dist/auth.d.ts",
       "import": "./dist/auth.js",
       "default": "./dist/auth.js"
     },
+    "./auth/provider": {
+      "types": "./dist/auth-provider.d.ts",
+      "import": "./dist/auth-provider.js",
+      "default": "./dist/auth-provider.js"
+    },
     "./orm": {
       "types": "./dist/orm.d.ts",
       "import": "./dist/orm.js",
       "default": "./dist/orm.js"
+    },
+    "./orm/provider": {
+      "types": "./dist/orm-provider.d.ts",
+      "import": "./dist/orm-provider.js",
+      "default": "./dist/orm-provider.js"
     },
     "./package.json": "./package.json"
   },
@@ -40,7 +55,7 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "bun build ./src/index.ts ./src/core.ts ./src/http.ts ./src/auth.ts ./src/orm.ts --outdir ./dist --target bun --external @bunary/core --external @bunary/http --external @bunary/auth --external @bunary/orm && tsc -p tsconfig.build.json",
+    "build": "bun build ./src/index.ts ./src/core.ts ./src/http.ts ./src/http-provider.ts ./src/auth.ts ./src/auth-provider.ts ./src/orm.ts ./src/orm-provider.ts --outdir ./dist --target bun --external \"@bunary/*\" && tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "test": "bun test",
     "lint": "biome check ./src ./tests",
@@ -74,10 +89,10 @@
     "bun": ">=1.4.0"
   },
   "dependencies": {
-    "@bunary/auth": "^0.1.0",
-    "@bunary/core": "^0.2.0",
-    "@bunary/http": "^0.3.0",
-    "@bunary/orm": "^0.1.0"
+    "@bunary/auth": "^0.4.0",
+    "@bunary/core": "^0.4.0",
+    "@bunary/http": "^0.4.0",
+    "@bunary/orm": "^0.4.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.3",
