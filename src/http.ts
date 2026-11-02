@@ -3,7 +3,7 @@
  *
  * @example
  * ```ts
- * import { createApp } from "bunary/http";
+ * import { createRouter, cors, json } from "bunary/http";
  * ```
  */
 export * from "@bunary/http";

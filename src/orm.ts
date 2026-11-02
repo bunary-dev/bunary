@@ -3,7 +3,7 @@
  *
  * @example
  * ```ts
- * import { BaseModel, defineOrmConfig } from "bunary/orm";
+ * import { defineModel } from "bunary/orm";
  * ```
  */
 export * from "@bunary/orm";

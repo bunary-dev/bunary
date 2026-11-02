@@ -2,125 +2,242 @@
  * Bunary - A Bun-first backend framework
  *
  * This is the umbrella package that re-exports all Bunary modules.
- * You can import everything from here, or use the individual packages.
+ * You can import everything from here, or use the individual subpaths.
  *
  * Every runtime and type export of `@bunary/core`, `@bunary/http`,
- * `@bunary/auth` and `@bunary/orm` is re-exported flat from this entry
- * (the four packages have no name collisions). `tests/completeness.test.ts`
- * and `tests/type-surface.test.ts` fail if this list drifts from the
+ * `@bunary/auth`, `@bunary/orm` and their `/provider` integrations is
+ * re-exported flat from this entry, except the one name collision:
+ * `createCookieJar` / `CookieJar` exist in both `@bunary/http` and
+ * `@bunary/auth` with different types, so import them from `bunary/http` or
+ * `bunary/auth`. `tests/completeness.test.ts` and
+ * `tests/type-surface.test.ts` fail if this list drifts from the
  * sub-packages.
  *
  * @example
  * ```ts
  * // Import everything from bunary
- * import { createApp, env, isDev, BaseModel } from "bunary";
+ * import { createApp, createRouter, defineModel, httpProvider, serve } from "bunary";
  *
- * // Or import from submodules
- * import { createApp } from "bunary/http";
- * import { env } from "bunary/core";
- * import { BaseModel } from "bunary/orm";
+ * // Or import from subpaths
+ * import { createApp } from "bunary/core";
+ * import { createRouter } from "bunary/http";
+ * import { httpProvider, serve } from "bunary/http/provider";
+ * import { defineModel } from "bunary/orm";
  * ```
  *
  * @packageDocumentation
  */
 
-// Re-export auth
+// Re-export auth (`createCookieJar` and `CookieJar` collide with http: subpath only)
 export type {
+  AttemptResult,
   AuthConfig,
   AuthContext,
+  AuthCookieJar,
+  AuthHandlerResult,
+  AuthLocals,
   AuthManagerInterface,
-  AuthPlugin,
-  AuthPluginRouter,
-  AuthStorage,
+  AuthMiddleware,
+  AuthRequestContext,
   AuthUser,
   BasicGuardOptions,
+  CookieOptions,
+  Credentials,
   Guard,
   GuardInput,
-  InstallableAuthManager,
   JwtGuardOptions,
+  QueuedCookieJar,
+  SessionGuardOptions,
+  UserProvider,
 } from "@bunary/auth";
 export {
-  auth,
-  clearAuthManager,
   createAuth,
   createAuthManager,
   createBasicGuard,
-  createCookieStorage,
   createJwtGuard,
-  getAuthManager,
-  installAuthPlugin,
-  setAuthManager,
+  createSessionGuard,
 } from "@bunary/auth";
-// Re-export core
-export type { AppConfig, BunaryConfig, EnvironmentType } from "@bunary/core";
+export type {
+  AuthAppRequestContext,
+  AuthMiddlewareOptions,
+  AuthUserLocals,
+  RequiredAuthLocals,
+} from "@bunary/auth/provider";
 export {
-  clearBunaryConfig,
+  AuthToken,
+  authMiddleware,
+  authProvider,
+  requireAuth,
+} from "@bunary/auth/provider";
+// Re-export core
+export type {
+  AppConfig,
+  Application,
+  BunaryConfig,
+  Command,
+  CommandArg,
+  CommandFlag,
+  ConfigPath,
+  ConfigRepository,
+  ConfigSchema,
+  CreateAppOptions,
+  EnvironmentType,
+  EnvOf,
+  Provider,
+  SchemaLike,
+  StandardSchemaV1,
+  Token,
+  ValidationIssue,
+} from "@bunary/core";
+export {
+  BunaryError,
+  createApp,
   createConfig,
+  createToken,
   defineConfig,
+  defineEnv,
+  defineProvider,
   Environment,
   env,
-  getBunaryConfig,
+  environment,
   isDev,
   isProd,
   isTest,
+  MissingBindingError,
+  resolveEnvironment,
+  ValidationError,
+  validateWith,
 } from "@bunary/core";
-// Re-export http
+// Re-export http (`createCookieJar` and `CookieJar` collide with auth: subpath only)
 export type {
-  AppOptions,
-  BunaryApp,
+  AnyContext,
+  BodyOf,
+  BodyReader,
   BunaryServer,
+  CookieSerializeOptions,
   CorsOptions,
   GroupCallback,
   GroupOptions,
   GroupRouter,
   HandlerResponse,
+  HttpConfig,
+  HttpErrorOptions,
   HttpMethod,
+  InferSchemaOutput,
   ListenOptions,
   Middleware,
+  ParamsOf,
   PathParams,
+  ProblemDetails,
+  ProblemOptions,
+  ProblemResponseOptions,
+  QueryOf,
+  QueryParams,
+  RateLimitHit,
+  RateLimitOptions,
+  RateLimitStore,
   RequestContext,
+  ResourceConverter,
   RouteBuilder,
   RouteHandler,
   RouteInfo,
+  Router,
+  RouterOptions,
+  RouterWebSocketHandler,
+  RouteSchema,
+  RouteSchemas,
+  ServeStaticOptions,
+  SseEvent,
+  SseOptions,
+  SseStream,
+  StandardSchemaLike,
+  ValidatedContext,
+  ValidatedRouteHandler,
+  WebSocketData,
+  WebSocketHandlers,
+  WebSocketRouteOptions,
 } from "@bunary/http";
-export { BodyParseError, cors, createApp } from "@bunary/http";
+export {
+  abort,
+  BadRequestError,
+  BodyParseError,
+  ConflictError,
+  cors,
+  createRouter,
+  ForbiddenError,
+  HttpError,
+  html,
+  InternalServerError,
+  isHttpError,
+  json,
+  MethodNotAllowedError,
+  NotFoundError,
+  problem,
+  problemResponse,
+  Resource,
+  rateLimit,
+  redirect,
+  serveStatic,
+  sse,
+  status,
+  TooManyRequestsError,
+  text,
+  toResponse,
+  UnauthorizedError,
+  UnprocessableError,
+} from "@bunary/http";
+export {
+  httpProvider,
+  RouterToken,
+  serve,
+} from "@bunary/http/provider";
 // Re-export orm
 export type {
+  AnyDatabase,
+  CheckRelationNames,
+  CheckReservedColumns,
+  CheckReservedScopes,
   DatabaseConfig,
-  DatabaseDriver,
-  DatabaseType,
-  DriverFactory,
-  MigrationModule,
-  MigrationRecord,
-  MigrationStatus,
-  MigratorOptions,
-  ModelData,
-  MysqlConfig,
-  OrmConfig,
-  QueryBuilder,
-  QueryResult,
-  SqliteConfig,
-  TableBuilder,
-  TableBuilderCallback,
-} from "@bunary/orm";
-export {
-  BaseModel,
-  clearDriverRegistry,
-  clearOrmConfig,
-  closeDriver,
-  createDriver,
-  createMigrator,
-  defineOrmConfig,
-  enableCoreConfig,
-  getDriver,
-  getOrmConfig,
-  MigrationsRepository,
-  Migrator,
+  DefineModelOptions,
+  InstanceMethods,
+  InstanceOf,
+  LoadedRelations,
   Model,
-  MysqlDriver,
-  registerDriver,
-  resetDriver,
-  Schema,
-  SqliteDriver,
-  setOrmConfig,
+  ModelEvent,
+  ModelEventTargets,
+  ModelInstance,
+  ModelListener,
+  ModelListeners,
+  ModelMethods,
+  ModelQuery,
+  NewRowOf,
+  NoRelations,
+  NoScopes,
+  PostgresDatabaseConfig,
+  PrimaryKeyColumn,
+  QueryMethods,
+  QueryOptions,
+  RelatedModel,
+  RelationsJson,
+  RelationsOf,
+  ReservedColumnName,
+  ReservedScopeName,
+  RowOf,
+  Scope,
+  ScopeConstraint,
+  ScopeMap,
+  ScopeMethods,
+  ScopesOf,
+  SelectQuery,
+  SoftDeleteInstanceMethods,
+  SoftDeleteQueryMethods,
+  SoftDeletesRequiresDeletedAt,
+  SqliteDatabaseConfig,
+  SupportsSoftDeletes,
+  TableFor,
+  TransactionFor,
+  WithRelations,
 } from "@bunary/orm";
+export { defineModel, ModelNotFoundError } from "@bunary/orm";
+export type { OrmProviderOptions } from "@bunary/orm/provider";
+export { DatabaseToken, ormProvider } from "@bunary/orm/provider";
