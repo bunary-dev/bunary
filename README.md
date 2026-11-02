@@ -11,12 +11,12 @@ Requires Bun ≥ 1.4.0.
 ## Installation
 
 ```bash
-bun add bunary@^0.4.0
+bun add bunary@^0.5.0
 ```
 
-This installs the complete Bunary framework at 0.4.0:
+This installs the complete Bunary framework: `@bunary/http` 0.7 and `@bunary/core`, `@bunary/auth` and `@bunary/orm` 0.4:
 - `@bunary/core` - Application container, providers, config, environment and validation helpers
-- `@bunary/http` - Router, middleware, response helpers, CORS, rate limiting, static files, SSE
+- `@bunary/http` - Router, middleware, route model binding, response helpers, CORS, rate limiting, static files, SSE
 - `@bunary/auth` - Session, JWT and Basic guards
 - `@bunary/orm` - `defineModel()` models on [Drizzle](https://orm.drizzle.team) (`drizzle-orm` is a peer dependency, installed automatically by `bun add`)
 
@@ -82,7 +82,7 @@ You can also install packages individually:
 
 ```bash
 bun add @bunary/core@^0.4.0                # Application, config, environment
-bun add @bunary/http@^0.4.0                # HTTP routing
+bun add @bunary/http@^0.7.1                # HTTP routing
 bun add @bunary/auth@^0.4.0                # Authentication
 bun add @bunary/orm@^0.4.0 drizzle-orm     # Models
 ```
